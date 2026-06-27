@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Custom CSS Variables (RGB values for Tailwind opacity support) ─── */
+:root {
+  --color-orange: 255 107 43;
+  --color-yellow: 255 210 63;
+  --color-green: 29 185 84;
+  --color-blue: 14 165 233;
+  --color-purple: 124 58 237;
+  --color-dark: 10 10 15;
+  --color-dark-2: 17 17 24;
+  --color-dark-3: 26 26 36;
+}
+
+/* ─── Base Resets ─── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-brand-dark text-white antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+
+  ::selection {
+    background-color: rgb(var(--color-orange));
+    color: white;
+  }
+
+  * {
+    @apply border-white/10;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─── Component Utilities ─── */
+@layer components {
+  /* Glass card effect */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Gradient text */
+  .gradient-text-orange {
+    @apply bg-gradient-to-r from-brand-orange to-brand-yellow bg-clip-text text-transparent;
+  }
+
+  .gradient-text-green {
+    @apply bg-gradient-to-r from-brand-green to-brand-blue bg-clip-text text-transparent;
+  }
+
+  .gradient-text-purple {
+    @apply bg-gradient-to-r from-brand-purple to-brand-blue bg-clip-text text-transparent;
+  }
+
+  /* CTA Button */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-4 rounded-xl font-semibold text-sm
+           bg-gradient-to-r from-brand-orange to-amber-500 text-white
+           hover:from-amber-500 hover:to-brand-orange
+           transform hover:scale-105 transition-all duration-200
+           shadow-lg shadow-brand-orange/25;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-6 py-4 rounded-xl font-semibold text-sm
+           border border-white/20 text-white/80
+           hover:bg-white/10 hover:text-white hover:border-white/40
+           transform hover:scale-105 transition-all duration-200;
+  }
+
+  /* Section badge — border e background gestiti inline per componente
+     (border-current/30 non è supportato da @apply in Tailwind v3) */
+  .section-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full
+           text-xs font-bold uppercase tracking-widest border;
+  }
+}
+
+/* ─── Scrollbar Styling ─── */
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--color-dark));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-orange));
+    border-radius: 3px;
+  }
+
+  /* Noise texture overlay */
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.04;
+  }
+
+  /* Animate delay utilities */
+  .animation-delay-150 { animation-delay: 150ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-700 { animation-delay: 700ms; }
+}
