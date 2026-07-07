@@ -34,7 +34,7 @@ function Navbar() {
     <header
       role="banner"
       className="fixed top-0 inset-x-0 z-50 flex items-center justify-between
-                 px-4 sm:px-8 py-4
+                 px-6 md:px-8 py-4
                  bg-brand-dark/80 backdrop-blur-xl border-b border-white/5"
     >
       {/* Logo */}
@@ -84,7 +84,7 @@ function HeroSection() {
       className="relative h-[250vh] md:h-[400vh] w-full"
     >
       {/* Sticky container */}
-      <div className="sticky top-0 h-[100dvh] w-full flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+      <div className="sticky top-0 h-[100dvh] w-full flex flex-col items-center justify-center text-center px-6 md:px-8 overflow-hidden">
         {/* Background sequence */}
         <HeroSequence />
 
@@ -220,7 +220,7 @@ function BasketSection() {
       <div aria-hidden="true"
         className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-brand-orange/0 via-brand-orange to-brand-orange/0 rounded-full" />
 
-      <div className="section-container">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
         {/* Header */}
         <div className="space-y-4 mb-16">
           <span
@@ -324,7 +324,7 @@ function SummerCampSection() {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
                    w-[800px] h-[400px] bg-brand-green/5 rounded-full blur-3xl" />
 
-      <div className="section-container relative">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* LEFT — Info */}
@@ -565,7 +565,7 @@ function EventsSection() {
         <div className="absolute bottom-1/3 left-0 w-96 h-96 bg-brand-yellow/8 rounded-full blur-3xl" />
       </div>
 
-      <div className="section-container space-y-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-16">
         {/* Header */}
         <div className="space-y-4">
           <span
