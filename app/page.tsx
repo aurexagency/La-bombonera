@@ -78,15 +78,10 @@ function Navbar() {
 // ─────────────────────────────────────────────
 function HeroSection() {
   return (
+    {/* Mobile (< md): 100dvh — nessuno scroll a vuoto. Desktop (≥ md): 400vh per l'animazione sticky. */}
     <section
       id="hero"
       aria-label="Benvenuto a La Bombonera"
-      {/*
-       * Mobile  (< md): 100dvh — altezza esatta della viewport visibile,
-       *   escluse le barre dinamiche del browser. Zero scroll a vuoto.
-       * Desktop (≥ md): 400vh — spazio virtuale per l'animazione sticky
-       *   che scala i frame del video in base alla posizione di scroll.
-       */}
       className="relative h-[100dvh] md:h-[400vh] w-full"
     >
       {/*
