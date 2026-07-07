@@ -68,10 +68,10 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${inter.variable} ${bebasNeue.variable} overflow-x-clip w-full`}
+      className={`${inter.variable} ${bebasNeue.variable} overflow-x-hidden w-full`}
       suppressHydrationWarning
     >
-      <body className="font-sans bg-brand-dark text-white overflow-x-clip w-full">
+      <body className="font-sans bg-brand-dark text-white overflow-x-hidden w-full relative">
         {/* Skip to main content — accessibilità */}
         <a
           href="#main-content"
@@ -80,14 +80,16 @@ export default function RootLayout({
           Vai al contenuto principale
         </a>
 
-        <main id="main-content">{children}</main>
+        <main id="main-content" className="relative w-full overflow-x-hidden">
+          {children}
+        </main>
 
         {/* Footer — Server Component */}
         <footer
           role="contentinfo"
-          className="bg-brand-dark-2 border-t border-white/5 py-10"
+          className="relative bg-brand-dark-2 border-t border-white/5 py-10 w-full overflow-hidden"
         >
-          <div className="section-container text-center space-y-4">
+          <div className="max-w-7xl mx-auto px-6 md:px-8 text-center space-y-4">
             <p className="font-display text-3xl gradient-text-orange tracking-widest">
               LA BOMBONERA
             </p>
