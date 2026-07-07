@@ -17,6 +17,7 @@
 
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
+import Link from 'next/link'
 import { HeroSequence } from './components/HeroSequence'
 
 // ─── Metadata della pagina ────────────────────────────────────────────────────
@@ -51,14 +52,14 @@ function Navbar() {
         aria-label="Navigazione principale"
         className="hidden md:flex items-center gap-6 text-sm font-semibold text-white/60"
       >
-        <a href="#basket" className="hover:text-brand-orange transition-colors duration-200">
-          🏀 Basket
+        <a href="#eventi" className="hover:text-brand-purple transition-colors duration-200">
+          🎵 Serate
         </a>
         <a href="#summer-camp" className="hover:text-brand-green transition-colors duration-200">
           ⛺ Summer Camp
         </a>
-        <a href="#eventi" className="hover:text-brand-purple transition-colors duration-200">
-          🎵 Serate
+        <a href="#basket" className="hover:text-brand-orange transition-colors duration-200">
+          🏀 Basket
         </a>
         <a
           href="#summer-camp"
@@ -124,17 +125,17 @@ function HeroSection() {
 
           {/* CTA grid */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <a href="#basket" id="hero-cta-basket" className="btn-primary">
-              <span aria-hidden="true">🏀</span>
-              Campo da Basket
+            <a href="#eventi" id="hero-cta-eventi" className="btn-primary">
+              <span aria-hidden="true">🎵</span>
+              Serate &amp; Musica
             </a>
             <a href="#summer-camp" id="hero-cta-camp" className="btn-ghost">
               <span aria-hidden="true">⛺</span>
               Summer Camp
             </a>
-            <a href="#eventi" id="hero-cta-eventi" className="btn-ghost">
-              <span aria-hidden="true">🎵</span>
-              Serate &amp; Musica
+            <a href="#basket" id="hero-cta-basket" className="btn-ghost">
+              <span aria-hidden="true">🏀</span>
+              Campo da Basket
             </a>
           </div>
         </div>
@@ -446,6 +447,7 @@ function EventCard({
   emoji,
   color,
   id,
+  href,
 }: {
   day: string
   title: string
@@ -454,6 +456,7 @@ function EventCard({
   emoji: string
   color: 'purple' | 'blue' | 'yellow'
   id: string
+  href?: string
 }) {
   const colorMap = {
     purple: {
@@ -478,14 +481,12 @@ function EventCard({
 
   const c = colorMap[color]
 
-  return (
-    <article
-      id={id}
-      aria-label={`Serata del ${day}: ${title}`}
-      className={`glass-card p-6 sm:p-8 space-y-4 relative overflow-hidden
+  const className = `glass-card p-6 sm:p-8 space-y-4 relative overflow-hidden block
                   transition-all duration-300 ${c.hover}
-                  hover:bg-white/8 hover:-translate-y-1`}
-    >
+                  hover:bg-white/8 hover:-translate-y-1`
+
+  const content = (
+    <>
       {/* Glow blob */}
       <div aria-hidden="true"
         className={`absolute -top-8 -right-8 w-32 h-32 ${c.glow} rounded-full blur-2xl`} />
@@ -510,6 +511,20 @@ function EventCard({
 
       {/* Description */}
       <p className="text-white/65 text-sm leading-relaxed">{description}</p>
+    </>
+  )
+
+  if (href) {
+    return (
+      <Link href={href} id={id} aria-label={`Serata del ${day}: ${title}`} className={className}>
+        {content}
+      </Link>
+    )
+  }
+
+  return (
+    <article id={id} aria-label={`Serata del ${day}: ${title}`} className={className}>
+      {content}
     </article>
   )
 }
@@ -535,6 +550,7 @@ function EventsSection() {
       description:
         'La tradizione della danza italiana incontra l\'estate di Grosseto. Balliamo insieme con la musica liscio che ha fatto la storia.',
       color: 'blue' as const,
+      href: '/eventi/liscio',
     },
     {
       id: 'event-venerdi',
@@ -645,8 +661,8 @@ export default function HomePage() {
         <div aria-hidden="true"
           className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-        {/* ── Server Component: Sezione Basket ── */}
-        <BasketSection />
+        {/* ── Server Component: Sezione Area Eventi ── */}
+        <EventsSection />
 
         {/* ─── Divisore decorativo ─── */}
         <div aria-hidden="true"
@@ -657,10 +673,10 @@ export default function HomePage() {
 
         {/* ─── Divisore decorativo ─── */}
         <div aria-hidden="true"
-          className="h-px bg-gradient-to-r from-transparent via-brand-purple/20 to-transparent" />
+          className="h-px bg-gradient-to-r from-transparent via-brand-orange/20 to-transparent" />
 
-        {/* ── Server Component: Sezione Area Eventi ── */}
-        <EventsSection />
+        {/* ── Server Component: Sezione Basket ── */}
+        <BasketSection />
 
       </div>
     </>
