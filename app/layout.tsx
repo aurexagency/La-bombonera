@@ -71,7 +71,7 @@ export default function RootLayout({
       className={`${inter.variable} ${bebasNeue.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-sans bg-brand-dark text-white overflow-x-hidden">
+      <body className="font-sans bg-brand-dark text-white overflow-x-clip">
         {/* Skip to main content — accessibilità */}
         <a
           href="#main-content"
