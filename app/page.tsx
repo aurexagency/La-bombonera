@@ -81,10 +81,10 @@ function HeroSection() {
     <section
       id="hero"
       aria-label="Benvenuto a La Bombonera"
-      className="relative h-[400vh] w-full"
+      className="relative h-[250vh] md:h-[400vh] w-full"
     >
-      {/* Sticky su tutti i dispositivi — l'animazione frame-by-frame è attiva anche su mobile */}
-      <div className="sticky top-0 h-[100dvh] w-full flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+      {/* Sticky su tutti i dispositivi. Usiamo h-screen invece di 100dvh perché dvh può rompere lo sticky su Safari iOS */}
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         {/* Background sequence */}
         <HeroSequence />
 

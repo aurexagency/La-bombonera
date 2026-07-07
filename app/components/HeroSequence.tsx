@@ -41,16 +41,17 @@ export function HeroSequence() {
     }
 
     // ─── Logica scroll → frame ─────────────────────────────────────────────
-    // HeroSection è alta 400vh su tutti i dispositivi.
-    // L'area di scroll effettiva è 300vh (400vh - 1 viewport di altezza).
+    // Su mobile la HeroSection è 250vh (scroll utile = 150vh, o 1.5 * innerHeight).
+    // Su desktop la HeroSection è 400vh (scroll utile = 300vh, o 3 * innerHeight).
     const updateFrameOnScroll = () => {
       if (prefersReducedMotion) {
         drawFrame(0)
         return
       }
 
-      // Su iOS/Android window.scrollY è affidabile anche durante touchmove
-      const maxScroll = window.innerHeight * 3
+      const isMobile = window.innerWidth < 768
+      const scrollMultiplier = isMobile ? 1.5 : 3
+      const maxScroll = window.innerHeight * scrollMultiplier
       const scrollY = window.scrollY
       const scrollFraction = Math.max(0, Math.min(scrollY / maxScroll, 1))
       const frameIndex = Math.floor(scrollFraction * (totalFrames - 1))
