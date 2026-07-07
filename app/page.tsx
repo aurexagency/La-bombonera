@@ -110,8 +110,8 @@ function HeroSection() {
             Grosseto · Via Lago di Varano · Estate 2026
           </span>
 
-          {/* H1 — un solo h1 per pagina, come da best practice SEO */}
-          <h1 className="font-display text-6xl sm:text-8xl lg:text-9xl tracking-widest leading-none">
+          {/* H1 */}
+          <h1 className="font-display text-5xl sm:text-7xl lg:text-9xl tracking-widest leading-none">
             <span className="gradient-text-orange">LA</span>
             <br />
             <span className="text-white">BOMBONERA</span>

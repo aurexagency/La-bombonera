@@ -68,10 +68,10 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${inter.variable} ${bebasNeue.variable}`}
+      className={`${inter.variable} ${bebasNeue.variable} overflow-x-clip w-full`}
       suppressHydrationWarning
     >
-      <body className="font-sans bg-brand-dark text-white">
+      <body className="font-sans bg-brand-dark text-white overflow-x-clip w-full">
         {/* Skip to main content — accessibilità */}
         <a
           href="#main-content"
