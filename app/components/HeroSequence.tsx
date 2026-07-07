@@ -106,7 +106,9 @@ export function HeroSequence() {
     // ─── Event listeners ───────────────────────────────────────────────────
     // 'scroll'    → desktop + mobile (leggermente in ritardo su mobile)
     // 'touchmove' → mobile: immediato
-    window.addEventListener('resize',    () => resizeCanvas(false), { passive: true })
+    const handleResize = () => resizeCanvas(false)
+    
+    window.addEventListener('resize',    handleResize,    { passive: true })
     window.addEventListener('scroll',    scheduleUpdate,  { passive: true })
     window.addEventListener('touchmove', scheduleUpdate,  { passive: true })
 
@@ -114,7 +116,7 @@ export function HeroSequence() {
     loadImages()
 
     return () => {
-      window.removeEventListener('resize',    resizeCanvas)
+      window.removeEventListener('resize',    handleResize)
       window.removeEventListener('scroll',    scheduleUpdate)
       window.removeEventListener('touchmove', scheduleUpdate)
     }
