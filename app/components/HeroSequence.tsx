@@ -61,18 +61,13 @@ export function HeroSequence() {
       }
     }
 
-    // ─── Throttle con requestAnimationFrame ────────────────────────────────
-    // Un singolo flag `ticking` condiviso da scroll E touchmove evita che i
-    // due listener si sovrappongano sprecando frame sul browser.
-    let ticking = false
+    // ─── Esecuzione sincrona per iOS Safari (Momentum Scrolling) ───────────
+    // Su iOS (Webkit), delegare l'update a requestAnimationFrame durante lo
+    // scrolling inerziale può causare frame droppati o "congelamenti" dell'animazione.
+    // Eseguendo updateFrameOnScroll in modo sincrono all'evento passive, forziamo
+    // il canvas a rimanere perfettamente allineato allo scrollY nativo.
     const scheduleUpdate = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateFrameOnScroll()
-          ticking = false
-        })
-        ticking = true
-      }
+      updateFrameOnScroll()
     }
 
     // ─── Canvas resize (ottimizzato per mobile) ────────────────────────────
