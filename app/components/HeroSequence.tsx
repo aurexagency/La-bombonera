@@ -52,7 +52,7 @@ export function HeroSequence() {
       const isMobile = window.innerWidth < 768
       const scrollMultiplier = isMobile ? 1.5 : 3
       const maxScroll = window.innerHeight * scrollMultiplier
-      const scrollY = window.scrollY
+      const scrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0
       const scrollFraction = Math.max(0, Math.min(scrollY / maxScroll, 1))
       const frameIndex = Math.floor(scrollFraction * (totalFrames - 1))
 
@@ -123,7 +123,7 @@ export function HeroSequence() {
   }, [])
 
   return (
-    <div className="absolute inset-0 -z-10 bg-brand-dark overflow-hidden">
+    <div className="absolute inset-0 -z-10 bg-brand-dark overflow-hidden touch-pan-y">
       <canvas
         ref={canvasRef}
         className="w-full h-full opacity-50 mix-blend-screen"

@@ -68,10 +68,10 @@ export default function RootLayout({
   return (
     <html
       lang="it"
-      className={`${inter.variable} ${bebasNeue.variable} overflow-x-hidden w-full`}
+      className={`${inter.variable} ${bebasNeue.variable} overflow-x-clip touch-pan-y w-full`}
       suppressHydrationWarning
     >
-      <body className="font-sans bg-brand-dark text-white overflow-x-hidden w-full relative">
+      <body className="font-sans bg-brand-dark text-white overflow-x-clip touch-pan-y w-full relative">
         {/* Skip to main content — accessibilità */}
         <a
           href="#main-content"
@@ -80,7 +80,7 @@ export default function RootLayout({
           Vai al contenuto principale
         </a>
 
-        <main id="main-content" className="relative w-full overflow-x-hidden">
+        <main id="main-content" className="relative w-full">
           {children}
         </main>
 
