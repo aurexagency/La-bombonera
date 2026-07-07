@@ -597,13 +597,44 @@ function EventsSection() {
           >
             <span className="gradient-text-purple">SERATE &amp;</span>
             <br />
-            <span className="text-white">MUSICA LIVE</span>
+            <span className="text-white">MUSICA LIVE... SOTTO LE STELLE</span>
           </h2>
 
           {/* Apertura info */}
           <p className="text-white/55 text-lg leading-relaxed max-w-xl">
             Ogni Mercoledì, Giovedì e Venerdì ci saranno 3 format che vi intratterranno per tutta l'estate.
           </p>
+        </div>
+
+        {/* CTA Programmazione */}
+        <div className="flex justify-start">
+          <Link
+            href="/programmazione-luglio"
+            id="eventi-cta-programmazione"
+            className="group relative inline-flex items-center gap-3 px-7 py-4 rounded-2xl font-semibold text-sm
+                       bg-gradient-to-r from-brand-purple/20 to-brand-blue/20
+                       border border-brand-purple/40 text-white
+                       hover:from-brand-purple/40 hover:to-brand-blue/40 hover:border-brand-purple/70
+                       hover:shadow-[0_0_32px_rgba(139,92,246,0.35)] hover:-translate-y-0.5
+                       transition-all duration-300"
+            aria-label="Visualizza la programmazione completa di Luglio 2026"
+          >
+            {/* Glow pill */}
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-brand-purple to-brand-blue opacity-0
+                         group-hover:opacity-10 transition-opacity duration-300"
+            />
+            <span aria-hidden="true" className="text-xl">📅</span>
+            <span>Programmazione Luglio 2026</span>
+            <svg
+              aria-hidden="true"
+              className="w-4 h-4 opacity-60 group-hover:translate-x-1 transition-transform duration-200"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
 
         {/* Events grid */}
