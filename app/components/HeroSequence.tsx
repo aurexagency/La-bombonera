@@ -59,19 +59,25 @@ export function HeroSequence() {
         return
       }
 
-      // Ora la HeroSection è alta 400vh, quindi l'area effettiva di scroll (finché la sezione sticky non comincia ad uscire)
-      // è di 300vh (400vh - 100vh di altezza schermo). 
+      // Su mobile (< 768px) la sezione hero è alta solo 100dvh — non esiste
+      // uno scroll "virtuale" da mappare sui frame. Mostriamo il frame 0 statico
+      // e usciamo subito, evitando che l'animazione si innesti su schermi piccoli.
+      const isMobile = window.innerWidth < 768
+      if (isMobile) {
+        drawFrame(0)
+        return
+      }
+
+      // Desktop: la HeroSection è alta 400vh → l'area effettiva di scroll
+      // (finché la sezione sticky non comincia ad uscire) è di 300vh (400vh - 100vh).
       const maxScroll = window.innerHeight * 3
       const scrollY = window.scrollY
       const scrollFraction = Math.max(0, Math.min(scrollY / maxScroll, 1))
-      
+
       const frameIndex = Math.floor(scrollFraction * (totalFrames - 1))
-      
-      // Assicuriamoci che il frame esista e sia caricato
+
       if (images[frameIndex] && images[frameIndex].complete) {
         drawFrame(frameIndex)
-      } else {
-        // Fallback: se stiamo scrollando troppo veloci e l'immagine non è pronta, disegnamo l'ultimo caricato (questo è gestito internamente al drawFrame o mantenendo lo stato attuale)
       }
     }
 
