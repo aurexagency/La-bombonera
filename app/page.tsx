@@ -78,17 +78,13 @@ function Navbar() {
 // ─────────────────────────────────────────────
 function HeroSection() {
   return (
-    {/* Mobile (< md): 100dvh — nessuno scroll a vuoto. Desktop (≥ md): 400vh per l'animazione sticky. */}
     <section
       id="hero"
       aria-label="Benvenuto a La Bombonera"
-      className="relative h-[100dvh] md:h-[400vh] w-full"
+      className="relative h-[400vh] w-full"
     >
-      {/*
-       * Mobile  (< md): posizionamento normale nel flusso, altezza 100dvh.
-       * Desktop (≥ md): sticky — rimane bloccato mentre l'utente scorre i 400vh.
-       */}
-      <div className="md:sticky md:top-0 h-[100dvh] w-full flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+      {/* Sticky su tutti i dispositivi — l'animazione frame-by-frame è attiva anche su mobile */}
+      <div className="sticky top-0 h-[100dvh] w-full flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         {/* Background sequence */}
         <HeroSequence />
 

@@ -59,17 +59,9 @@ export function HeroSequence() {
         return
       }
 
-      // Su mobile (< 768px) la sezione hero è alta solo 100dvh — non esiste
-      // uno scroll "virtuale" da mappare sui frame. Mostriamo il frame 0 statico
-      // e usciamo subito, evitando che l'animazione si innesti su schermi piccoli.
-      const isMobile = window.innerWidth < 768
-      if (isMobile) {
-        drawFrame(0)
-        return
-      }
-
-      // Desktop: la HeroSection è alta 400vh → l'area effettiva di scroll
-      // (finché la sezione sticky non comincia ad uscire) è di 300vh (400vh - 100vh).
+      // La HeroSection è alta 400vh su tutti i dispositivi.
+      // L'area effettiva di scroll (finché la sezione sticky non comincia ad uscire)
+      // è di 300vh (400vh - 100dvh di altezza schermo).
       const maxScroll = window.innerHeight * 3
       const scrollY = window.scrollY
       const scrollFraction = Math.max(0, Math.min(scrollY / maxScroll, 1))
