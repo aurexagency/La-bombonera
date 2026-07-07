@@ -61,13 +61,6 @@ function Navbar() {
         <a href="#basket" className="hover:text-brand-orange transition-colors duration-200">
           🏀 Basket
         </a>
-        <a
-          href="#summer-camp"
-          id="nav-cta-iscrizioni"
-          className="btn-primary text-xs px-4 py-2"
-        >
-          Iscriviti ora
-        </a>
       </nav>
     </header>
   )
