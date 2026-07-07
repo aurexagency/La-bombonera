@@ -214,7 +214,7 @@ function BasketSection() {
     <section
       id="basket"
       aria-labelledby="basket-heading"
-      className="relative py-24 sm:py-32"
+      className="relative py-24 sm:py-32 overflow-hidden"
     >
       {/* Accent glow */}
       <div aria-hidden="true"
@@ -311,7 +311,7 @@ function SummerCampSection() {
     <section
       id="summer-camp"
       aria-labelledby="camp-heading"
-      className="relative py-24 sm:py-32 bg-brand-dark-2"
+      className="relative py-24 sm:py-32 bg-brand-dark-2 overflow-hidden"
     >
       {/* Top border accent */}
       <div aria-hidden="true"
@@ -553,7 +553,7 @@ function EventsSection() {
     <section
       id="eventi"
       aria-labelledby="eventi-heading"
-      className="relative py-24 sm:py-32"
+      className="relative py-24 sm:py-32 overflow-hidden"
     >
       {/* Top border */}
       <div aria-hidden="true"
