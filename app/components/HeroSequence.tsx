@@ -75,23 +75,42 @@ export function HeroSequence() {
       }
     }
 
-    // ─── Canvas resize ─────────────────────────────────────────────────────
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+    // ─── Canvas resize (ottimizzato per mobile) ────────────────────────────
+    let lastWidth = window.innerWidth
+    let lastHeight = window.innerHeight
+
+    const resizeCanvas = (force = false) => {
+      const currentWidth = window.innerWidth
+      const currentHeight = window.innerHeight
+
+      // Su mobile, lo scroll nasconde la barra degli indirizzi, innescando resize continui.
+      // Se cambia solo l'altezza di poco (meno di 150px) e la larghezza è identica, 
+      // ignoriamo il resize per evitare che il canvas si resetti e l'animazione sparisca 
+      // durante i primissimi tocchi (scroll iniziale).
+      const isMobile = currentWidth < 768
+      const widthChanged = currentWidth !== lastWidth
+      const heightChanged = Math.abs(currentHeight - lastHeight) > 150
+
+      if (!force && isMobile && !widthChanged && !heightChanged) {
+        return
+      }
+
+      lastWidth = currentWidth
+      lastHeight = currentHeight
+
+      canvas.width = currentWidth
+      canvas.height = currentHeight
       updateFrameOnScroll()
     }
 
     // ─── Event listeners ───────────────────────────────────────────────────
     // 'scroll'    → desktop + mobile (leggermente in ritardo su mobile)
-    // 'touchmove' → mobile: si attiva IMMEDIATAMENTE al primo movimento del
-    //               dito, prima ancora che il browser inizi lo scroll.
-    //               window.scrollY è già aggiornato al momento di questo evento.
-    window.addEventListener('resize',    resizeCanvas,    { passive: true })
+    // 'touchmove' → mobile: immediato
+    window.addEventListener('resize',    () => resizeCanvas(false), { passive: true })
     window.addEventListener('scroll',    scheduleUpdate,  { passive: true })
     window.addEventListener('touchmove', scheduleUpdate,  { passive: true })
 
-    resizeCanvas()
+    resizeCanvas(true)
     loadImages()
 
     return () => {
