@@ -101,15 +101,6 @@ function HeroSection() {
 
         {/* Content */}
         <div className="max-w-5xl mx-auto space-y-6 animate-fade-in-up relative z-10">
-          {/* Badge */}
-          <span
-            className="section-badge text-brand-orange border-brand-orange/30 bg-brand-orange/10"
-            aria-label="Apertura estiva"
-          >
-            <span aria-hidden="true">✦</span>
-            Grosseto · Via Lago di Varano · Estate 2026
-          </span>
-
           {/* H1 */}
           <h1 className="font-display text-5xl sm:text-7xl lg:text-9xl tracking-widest leading-none">
             <span className="gradient-text-orange">LA</span>
