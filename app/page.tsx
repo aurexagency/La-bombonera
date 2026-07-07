@@ -123,21 +123,6 @@ function HeroSection() {
             aperto a tutta la città.
           </p>
 
-          {/* CTA grid */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <a href="#eventi" id="hero-cta-eventi" className="btn-primary">
-              <span aria-hidden="true">🎵</span>
-              Serate &amp; Musica
-            </a>
-            <a href="#summer-camp" id="hero-cta-camp" className="btn-ghost">
-              <span aria-hidden="true">⛺</span>
-              Summer Camp
-            </a>
-            <a href="#basket" id="hero-cta-basket" className="btn-ghost">
-              <span aria-hidden="true">🏀</span>
-              Campo da Basket
-            </a>
-          </div>
         </div>
 
         {/* Scroll indicator */}
