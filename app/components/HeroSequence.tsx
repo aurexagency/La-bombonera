@@ -13,7 +13,6 @@ export function HeroSequence() {
 
     const totalFrames = 80
     const images: HTMLImageElement[] = []
-    let loadedImages = 0
 
     // Check accessibility preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -22,29 +21,17 @@ export function HeroSequence() {
       for (let i = 0; i < totalFrames; i++) {
         const img = new Image()
         const paddedIndex = i.toString().padStart(3, '0')
-        // Le nuove immagini si chiamano "Hero-frame_000.jpg" fino a _079.jpg
         img.src = `/home-hero/Hero-frame_${paddedIndex}.jpg`
         img.onload = () => {
-          loadedImages++
-          // Draw the very first frame as soon as it's ready
-          if (i === 0) {
-            drawFrame(0)
-          }
+          if (i === 0) drawFrame(0)
         }
         images.push(img)
       }
     }
 
-    let currentFrame = 0
-    let animationFrameId: number
-    let lastTime = 0
-    const fps = 24
-    const interval = 1000 / fps
-
     const drawFrame = (index: number) => {
       const img = images[index]
       if (img && img.complete && img.naturalWidth !== 0) {
-        // Object-cover equivalent for Canvas
         const scale = Math.max(canvas.width / img.width, canvas.height / img.height)
         const x = (canvas.width / 2) - (img.width / 2) * scale
         const y = (canvas.height / 2) - (img.height / 2) * scale
@@ -53,19 +40,19 @@ export function HeroSequence() {
       }
     }
 
+    // ─── Logica scroll → frame ─────────────────────────────────────────────
+    // HeroSection è alta 400vh su tutti i dispositivi.
+    // L'area di scroll effettiva è 300vh (400vh - 1 viewport di altezza).
     const updateFrameOnScroll = () => {
       if (prefersReducedMotion) {
         drawFrame(0)
         return
       }
 
-      // La HeroSection è alta 400vh su tutti i dispositivi.
-      // L'area effettiva di scroll (finché la sezione sticky non comincia ad uscire)
-      // è di 300vh (400vh - 100dvh di altezza schermo).
+      // Su iOS/Android window.scrollY è affidabile anche durante touchmove
       const maxScroll = window.innerHeight * 3
       const scrollY = window.scrollY
       const scrollFraction = Math.max(0, Math.min(scrollY / maxScroll, 1))
-
       const frameIndex = Math.floor(scrollFraction * (totalFrames - 1))
 
       if (images[frameIndex] && images[frameIndex].complete) {
@@ -73,8 +60,11 @@ export function HeroSequence() {
       }
     }
 
+    // ─── Throttle con requestAnimationFrame ────────────────────────────────
+    // Un singolo flag `ticking` condiviso da scroll E touchmove evita che i
+    // due listener si sovrappongano sprecando frame sul browser.
     let ticking = false
-    const onScroll = () => {
+    const scheduleUpdate = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           updateFrameOnScroll()
@@ -84,32 +74,40 @@ export function HeroSequence() {
       }
     }
 
+    // ─── Canvas resize ─────────────────────────────────────────────────────
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
       updateFrameOnScroll()
     }
 
-    window.addEventListener('resize', resizeCanvas)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    
+    // ─── Event listeners ───────────────────────────────────────────────────
+    // 'scroll'    → desktop + mobile (leggermente in ritardo su mobile)
+    // 'touchmove' → mobile: si attiva IMMEDIATAMENTE al primo movimento del
+    //               dito, prima ancora che il browser inizi lo scroll.
+    //               window.scrollY è già aggiornato al momento di questo evento.
+    window.addEventListener('resize',    resizeCanvas,    { passive: true })
+    window.addEventListener('scroll',    scheduleUpdate,  { passive: true })
+    window.addEventListener('touchmove', scheduleUpdate,  { passive: true })
+
     resizeCanvas()
     loadImages()
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas)
-      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize',    resizeCanvas)
+      window.removeEventListener('scroll',    scheduleUpdate)
+      window.removeEventListener('touchmove', scheduleUpdate)
     }
   }, [])
 
   return (
     <div className="absolute inset-0 -z-10 bg-brand-dark overflow-hidden">
-      <canvas 
-        ref={canvasRef} 
-        className="w-full h-full opacity-50 mix-blend-screen" 
-        aria-hidden="true" 
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full opacity-50 mix-blend-screen"
+        aria-hidden="true"
       />
-      {/* Overlay gradient to ensure text readability e fondere col contenuto sotto */}
+      {/* Overlay gradient per leggibilità testo */}
       <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/30 via-transparent to-brand-dark" />
     </div>
   )
